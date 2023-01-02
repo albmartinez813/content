@@ -1,0 +1,905 @@
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    propagationLabels:
+    - all
+    toServerVersion: ""
+id: b8dfa903-476b-4de3-8f56-e03061d86b70
+inputs: []
+name: Xsoar Engineer - URL Alerts - update for git 23232
+outputs: []
+starttaskid: "0"
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "1"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: ab3da7f1-5632-41ae-8bb1-5ac4da9b8e2a
+      iscommand: false
+      name: ""
+      version: -1
+    taskid: ab3da7f1-5632-41ae-8bb1-5ac4da9b8e2a
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 592.5,
+          "y": 50
+        }
+      }
+  "1":
+    continueonerrortype: ""
+    fieldMapping:
+    - incidentfield: sAMAccountName
+      output:
+        simple: ${ActiveDirectory.Users.sAMAccountName}
+    - incidentfield: Account Member Of
+      output:
+        simple: ${ActiveDirectory.Users.memberOf}
+    id: "1"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "2"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      email:
+        complex:
+          accessor: sourceusername
+          root: incident
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Active Directory Query v2 (XSOAR Engineer Training)
+      description: Retrieves detailed information about a user account. The user can
+        be specified by name, email address, or as an Active Directory Distinguished
+        Name (DN). If no filter is specified, all users are returned.
+      id: a2a6155d-52fa-4c52-8609-94bbc00409fd
+      iscommand: true
+      name: Lookup User from AD
+      script: Active Directory Query v2 (XSOAR Engineer Training)|||ad-get-user
+      type: regular
+      version: -1
+    taskid: a2a6155d-52fa-4c52-8609-94bbc00409fd
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 592.5,
+          "y": 195
+        }
+      }
+  "2":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: ActiveDirectory.Users.memberOf
+          operator: containsString
+          right:
+            value:
+              simple: admin
+        - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: ActiveDirectory.Users.memberOf
+          operator: containsString
+          right:
+            value:
+              simple: executive
+      label: VIP User
+    continueonerrortype: ""
+    id: "2"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "4"
+      VIP User:
+      - "3"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: e034ab72-f197-468a-832b-6f908d83208f
+      iscommand: false
+      name: Is the user an Executive Administrator
+      type: condition
+      version: -1
+    taskid: e034ab72-f197-468a-832b-6f908d83208f
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 592.5,
+          "y": 370
+        }
+      }
+  "3":
+    continueonerrortype: ""
+    id: "3"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "5"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      severity:
+        simple: "3"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: commands.local.cmd.set.incident
+      id: dd001f54-2f21-436e-820d-2eb0f93d080c
+      iscommand: true
+      name: Set Sev High
+      script: Builtin|||setIncident
+      type: regular
+      version: -1
+    taskid: dd001f54-2f21-436e-820d-2eb0f93d080c
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 807.5,
+          "y": 545
+        }
+      }
+  "4":
+    continueonerrortype: ""
+    id: "4"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "5"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      severity:
+        simple: "2"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: commands.local.cmd.set.incident
+      id: 66d6c2eb-77e6-4b4d-86f4-1821f0119384
+      iscommand: true
+      name: Set Sev to Medium
+      script: Builtin|||setIncident
+      type: regular
+      version: -1
+    taskid: 66d6c2eb-77e6-4b4d-86f4-1821f0119384
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 377.5,
+          "y": 545
+        }
+      }
+  "5":
+    continueonerrortype: ""
+    fieldMapping:
+    - incidentfield: Detected Internal IPs
+      output:
+        complex:
+          accessor: Address
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: IP.InRange
+              operator: isEqualString
+              right:
+                value:
+                  simple: "yes"
+          root: IP
+    - incidentfield: Detected External IPs
+      output:
+        complex:
+          accessor: Address
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: IP.InRange
+              operator: isEqualString
+              right:
+                value:
+                  simple: "no"
+          root: IP
+    id: "5"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "6"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      ip:
+        simple: ${incident.sourceip}
+      ipRanges:
+        simple: ${lists.InternalIPRanges}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Returns yes if the IP is in one of the ranges provided, returns
+        no otherwise.
+      id: 520aa184-052d-4dd0-8f6d-fc256aae3dba
+      iscommand: false
+      name: Check if the Source IP is internal or external
+      script: IsIPInRanges
+      type: regular
+      version: -1
+    taskid: 520aa184-052d-4dd0-8f6d-fc256aae3dba
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 592.5,
+          "y": 720
+        }
+      }
+  "6":
+    continueonerrortype: ""
+    id: "6"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      "no":
+      - "8"
+      "yes":
+      - "7"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      includeSuspicious:
+        simple: "yes"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks if the investigation found any malicious indicators (file,
+        URL, IP address, domain, or email). Returns "yes" if at least one malicious
+        indicator is found.
+      id: 4c89cb21-adb0-4c3f-81f9-e9a11ed8d071
+      iscommand: false
+      name: Any malicious or suspicious indicators foud?
+      script: IsMaliciousIndicatorFound
+      type: condition
+      version: -1
+    taskid: 4c89cb21-adb0-4c3f-81f9-e9a11ed8d071
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 592.5,
+          "y": 895
+        }
+      }
+  "7":
+    continueonerrortype: ""
+    id: "7"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "10"
+      - "22"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 76727e81-ed2b-47b4-8396-7cf8200da201
+      iscommand: false
+      name: Remediation
+      type: title
+      version: -1
+    taskid: 76727e81-ed2b-47b4-8396-7cf8200da201
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 807.5,
+          "y": 1245
+        }
+      }
+  "8":
+    continueonerrortype: ""
+    id: "8"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      False Positive:
+      - "9"
+      Remediate:
+      - "7"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: "# Analyst Review\n\nReview the incident including indicators,
+        and select the below options.\n\n1. Select  **Remediate** to block the url
+        and reset the users password\n2. Select **False Positive** to close the incident
+        as a False Positive \n\nSource Username: ${incident.sourceusername}\nSuspicious
+        URL: ${incident.suspiciousurl}"
+      id: 243a7bb0-8fb2-4367-801a-3805b0b3b0b2
+      iscommand: false
+      name: |
+        Analyst Review
+      type: condition
+      version: -1
+    taskid: 243a7bb0-8fb2-4367-801a-3805b0b3b0b2
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 60,
+          "y": 1070
+        }
+      }
+  "9":
+    continueonerrortype: ""
+    id: "9"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "16"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      closeReason:
+        simple: This is a False Positive
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: commands.local.cmd.close.inv
+      id: 23a96204-57ce-4c12-884c-8927edb050a2
+      iscommand: true
+      name: Close Investigation
+      script: Builtin|||closeInvestigation
+      type: regular
+      version: -1
+    taskid: 23a96204-57ce-4c12-884c-8927edb050a2
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 50,
+          "y": 2615
+        }
+      }
+  "10":
+    continueonerrortype: ""
+    id: "10"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "16"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      field:
+        simple: tags
+      fieldValue:
+        simple: approved_block
+      indicatorsValues:
+        simple: ${incident.suspiciousurl}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: commands.local.cmd.add.values.to.indicator.multi.select.field
+      id: b8a32334-956e-44cd-8e50-41120a8c007d
+      iscommand: true
+      name: Block the URL
+      script: Builtin|||appendIndicatorField
+      type: regular
+      version: -1
+    taskid: b8a32334-956e-44cd-8e50-41120a8c007d
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 480,
+          "y": 2615
+        }
+      }
+  "15":
+    continueonerrortype: ""
+    id: "15"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "16"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        Call user and provide credentials
+
+        Source Username: ${ActiveDirectory.Users.sAMAccountName}
+        Password: ${NEW_PASSWORD}
+
+        Manager: ${UserManagerDisplayName}
+        Manager Email: ${UserManagerEmail}
+      id: cccd50df-ca33-4ddf-8563-b8dfae6ae172
+      iscommand: false
+      name: Inform User of Password Reset
+      type: regular
+      version: -1
+    taskid: cccd50df-ca33-4ddf-8563-b8dfae6ae172
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 910,
+          "y": 2615
+        }
+      }
+  "16":
+    continueonerrortype: ""
+    id: "16"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 62f81fc6-61f1-4e06-8ce5-1f93387c3a5d
+      iscommand: false
+      name: Done
+      type: title
+      version: -1
+    taskid: 62f81fc6-61f1-4e06-8ce5-1f93387c3a5d
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 695,
+          "y": 2790
+        }
+      }
+  "18":
+    continueonerrortype: ""
+    id: "18"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    loop:
+      exitCondition: ""
+      iscommand: false
+      max: 100
+      wait: 1
+    nexttasks:
+      '#none#':
+      - "26"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      expirePassword:
+        simple: "yes"
+      samAccountName:
+        simple: ${ActiveDirectory.Users.sAMAccountName}
+    separatecontext: true
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 137b9c61-a632-4505-82e6-50aa2e683039
+      iscommand: false
+      name: XSOAR Engineer - AD Password Reset
+      playbookId: 3bfc1f6f-2d7b-4ad4-8fca-6fbdf5fcd29b
+      type: playbook
+      version: -1
+    taskid: 137b9c61-a632-4505-82e6-50aa2e683039
+    timertriggers: []
+    type: playbook
+    view: |-
+      {
+        "position": {
+          "x": 910,
+          "y": 2090
+        }
+      }
+  "21":
+    continueonerrortype: ""
+    id: "21"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "15"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      manageremailaddress:
+        simple: ${UserManagerEmail}
+      managername:
+        simple: ${UserManagerDisplayName}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: Change the properties of an incident
+      id: 4a5cf90b-557a-43af-8934-4e2bd72706bc
+      iscommand: true
+      name: Set Manager Details to Fields
+      script: Builtin|||setIncident
+      type: regular
+      version: -1
+    taskid: 4a5cf90b-557a-43af-8934-4e2bd72706bc
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 910,
+          "y": 2440
+        }
+      }
+  "22":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: ActiveDirectory.Users.memberOf
+          operator: containsString
+          right:
+            value:
+              simple: admin
+        - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: ActiveDirectory.Users.memberOf
+          operator: containsString
+          right:
+            value:
+              simple: executive
+      label: VIP User
+    continueonerrortype: ""
+    id: "22"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "18"
+      VIP User:
+      - "23"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 811adbe1-94d6-4ca9-8c4f-ba530bbf89b6
+      iscommand: false
+      name: Is the user an Executive Administrator
+      type: condition
+      version: -1
+    taskid: 811adbe1-94d6-4ca9-8c4f-ba530bbf89b6
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1022.5,
+          "y": 1390
+        }
+      }
+  "23":
+    continueonerrortype: ""
+    id: "23"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "24"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: DefangedURL
+      value:
+        complex:
+          accessor: suspiciousurl
+          root: incident
+          transformers:
+          - args:
+              from:
+                value:
+                  simple: ://
+            operator: substringFrom
+          - args:
+              limit: {}
+              replaceWith:
+                value:
+                  simple: '[.]'
+              toReplace:
+                value:
+                  simple: .
+            operator: replace
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Set a value in context under the key you entered.
+      id: a6d1a965-78fb-4c53-8efb-e46d1cec1a0a
+      iscommand: false
+      name: Defang URL
+      script: Set
+      type: regular
+      version: -1
+    taskid: a6d1a965-78fb-4c53-8efb-e46d1cec1a0a
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1110,
+          "y": 1570
+        }
+      }
+  "24":
+    continueonerrortype: ""
+    form:
+      description: ""
+      expired: false
+      questions:
+      - defaultrows: []
+        fieldassociated: ""
+        gridcolumns: []
+        id: "0"
+        label: ""
+        labelarg:
+          simple: Did you expose your credentials when you accessed this URL?
+        options: []
+        optionsarg:
+        - simple: "Yes"
+        - simple: "No"
+        placeholder: ""
+        readonly: false
+        required: true
+        tooltip: Did you expose creds?
+        type: singleSelect
+      sender: ""
+      title: Security Suspicious Alert
+      totalanswers: 0
+    id: "24"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    message:
+      bcc: null
+      body:
+        simple: "Hello ${ActiveDirectory.Users.displayName},\n\nWe received an alert
+          that you access a potentially malicious url below:\n\n${DefangedURL}\n\nPlease
+          respond to this email confirming if you entered your password into this
+          page.  In the event you do not need to respond, your password will be automatically
+          reset within 2 hours. \n\nIf you have any questions, please call the Security
+          Operations Center, and reference ${incident.id}\n\nThank you,\nYour Friendly
+          Neighborhood SOC"
+      cc: null
+      format: ""
+      methods:
+      - email
+      subject:
+        simple: Security Operations Center - Suspicious URL Alert
+      timings:
+        completeafterreplies: 1
+        completeaftersla: false
+        completeafterv2: true
+        retriescount: 1
+        retriesinterval: 60
+      to:
+        simple: xsoartesting@outlook.com
+    nexttasks:
+      '#none#':
+      - "25"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    sla:
+      days: 0
+      hours: 2
+      minutes: 0
+      weeks: 0
+    task:
+      brand: ""
+      id: 247653ec-bc94-4fb4-8d13-f24a25421cdb
+      iscommand: false
+      name: Follow up with User
+      type: collection
+      version: -1
+    taskid: 247653ec-bc94-4fb4-8d13-f24a25421cdb
+    timertriggers: []
+    type: collection
+    view: |-
+      {
+        "position": {
+          "x": 1135,
+          "y": 1740
+        }
+      }
+  "25":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: Security Suspicious Alert.Answers.0
+          operator: isEqualString
+          right:
+            value:
+              simple: "yes"
+        - left:
+            iscontext: true
+            value:
+              simple: Security Suspicious Alert.Answers.0
+          operator: isNotExists
+      label: "yes"
+    continueonerrortype: ""
+    id: "25"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "16"
+      "yes":
+      - "18"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 2e750298-11c5-4882-8845-8d2f088737f0
+      iscommand: false
+      name: Did the user expose creds or not respond?
+      type: condition
+      version: -1
+    taskid: 2e750298-11c5-4882-8845-8d2f088737f0
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1135,
+          "y": 1915
+        }
+      }
+  "26":
+    continueonerrortype: ""
+    id: "26"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    loop:
+      exitCondition: ""
+      iscommand: false
+      max: 0
+      wait: 1
+    nexttasks:
+      '#none#':
+      - "21"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      UserEmail:
+        complex:
+          accessor: Email
+          root: Account
+          transformers:
+          - operator: uniq
+      Username:
+        simple: ${ActiveDirectory.Users.sAMAccountName}
+    separatecontext: true
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Takes an email address or a username of a user account in Active
+        Directory, and returns the email address of the user's manager.
+      id: f3998191-ed94-4802-8b8b-97a0bbcb76b6
+      iscommand: false
+      name: Active Directory - Get User Manager Details
+      playbookId: Active Directory - Get User Manager Details
+      type: playbook
+      version: -1
+    taskid: f3998191-ed94-4802-8b8b-97a0bbcb76b6
+    timertriggers: []
+    type: playbook
+    view: |-
+      {
+        "position": {
+          "x": 910,
+          "y": 2260
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {
+      "2_3_VIP User": 0.7
+    },
+    "paper": {
+      "dimensions": {
+        "height": 2805,
+        "width": 1465,
+        "x": 50,
+        "y": 50
+      }
+    }
+  }
