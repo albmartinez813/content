@@ -1,0 +1,367 @@
+category: Data Enrichment & Threat Intelligence
+commonfields:
+  id: Active Directory Query v2 (XSOAR Engineer Training)
+  version: -1
+configuration: []
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    propagationLabels:
+    - all
+    toServerVersion: ""
+description: Active Directory Query integration enables you to access and manage Active
+  Directory objects (users, contacts, and computers).
+detaileddescription: 'This is an example integration that returns mocked data for
+  the purposes of demonstrations / training / testing.  Absolutely 1000% do not use
+  this in production for obvious reasons. '
+display: Active Directory Query v2 (XSOAR Engineer Training)
+image: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAAyCAYAAACXpx/YAAAAAXNSR0IArs4c6QAADQlJREFUeAHtWntwVcUZ/3b3nPvIzTsBAiS5yU3iA5xSReuzijiKMmr1n3TaCiSAo1UHtdqx9XnVobZD1QrFNhJuQoJTSR/DVKF26IxiR8UWrVpw0CT35gUIIZDHTXLvPWd3++1JbriJNyFWkKhnZ849e/Z8u/vt7/ft7rffuQB2shGwEbARsBGwEbARsBGwEbARsBGwEbARsBGwEbARsBGwEbARsBE47QiQ06GBBKB/a2zUfx/KzGnXU2YVGF0H/npN4YHTocvXvU/tVA1Qkfju7t1sdVd+Vjulswc4LeyXrCQqaek0QopjnxAvB5hBqTOrjMdWox6PnCpdvsntfiGCFYnw2muU7FwgbrqiO71R6heGY7w0xuEMJNFnHCJek5AZ3IAcoTuYYBpIICClQMyRXsnBQRhIIb+QHt9kAk809hMCiyQS8C9gP7pqU9onRtb0cMTwxijxRQQtzQXmk9zp+/6loep/R3KCBx2ebQaTINkwiQJJFAIIQUINA3VRl2owIUmknCLvdjolCCQlWJF61qtHbuyl7u/kmKJMSOEze1meCTgTqcclmQOEhiQKCQzJ9BjyLNQuyDkHGYtaio4i8ZSobjc6GQSSEgx+PztkOlb3pqbMRRqRyOGZiEsqIInAB0dIJMSNefXCTlMRATqeUpKQCERwzsYGgZgxIALzuJx+6UnKEy8GaxudX7peX5EOk8/g06y8FmhaaEYG/qPpafPMTe3tUPVxD7jZkDESjUG0PwopWRS6DQ5u4dQkzINAU5+ZGt0N5XNjp1n9KdX9lCQYqE6Yy3OpJJRoBi8wNTodOAmDpNm4G/Rr1JMO0QgDl+g3ORBJNErQOZhSyE4RZaYkwQ4mPzJAm2WY/IhTcA0JTgFBYqDpe4CbXiT1IFDpAcpMpFdyLdoCwpEGkRwdcbVncIJxTUmCB5YUHUQd1QXRmpALPB4NyqeHh/XuGr5PfFN7d32wAIK+A+An6ED8n0nt7yksD51LDdykD5aWHh5pye+n4FuSDy7ffignU9LRHNfJGhnEac5QAU+RcLhmUmpUBy+HuMO1rslBTfIQzGjOnlTdcYRYun4L07Uq6tDvpUJfQ2tbNkDdgUJL3HezmxrkYTjSlj5O9ckX14QyYWPLxZOvMDnJcQlGc2QCo0z8hBcepAhGtAShnE5GfqwMOskSO0mWNnXkYKQk03pV01z2GZHAwWmgZrhKDe1u3LLvgXTIt8pWlUVFqn4P3F7SCdvHeNkNDQyqpFrOh9KG4Ayo2n38OV6OdyllLvDYH0Rl0V1iWWEFEfIfzIhWQd2nHlg6r1+YR++BO7zHUBADQjijGySD6r3HjQr1ggbUc2xS/dU1TR8pFubZlMjbYeO+tFG6VLdng7oS02vDkT9VrsY/VveGvQ7wS4vb5Ev0nDkyn0Q6OIgCKYcCF4ntJ+YZuCGNiMNp1Oz28d5OIFFqRSIThSbIa9INGYx3JxNhRuRqSdkuHPgA4vc9jIf92pJDa6cSHgVNaBjxTKO1TdUybM6VjM0lRHuQcP4ml7KGBkKPi9qWR6mkj7NA4xZjedl7qj7tm/8w01tfNqqDXZTAQ6A7I2BmZ4iNzetgRcnu0brgaMiwARKiDvxbsN1rGB9YiGGdV6ij1S/WNj4CNc3TaeGS+yAcxA5cLrF+7/3M6b5S9vOb0PwHIBDiIjXjMSjP7oHa1vlUiDsBHGEIBNE/5L+hgi1HczqPap5fMOmoN/x736de9wPoY8wEilpuDB4V/fwJQMOloeBPYWMoHXQyGzeG7VLPuUhsb3wAFpdFYf3hVNrXv0b4Prwfx9GflGBSXs6f3LlvlYfpOYYVYhw95MQnRnD0cqAxm+mRFGZeKzkfd1VIrBfP67oOxBhoij8n3iWjCwWINWCSXsLI85al3na+QaW8C+MvzWLp7PVqFgjOsqGyaAOtDV2ObDwEFUWH4IV3NdCyClRgFN3svbgS3YxtvwfPt2ZJIr5lhL2/pGnB9ULKACyd/RZUN5VSQp4UVbuXAvaRqEeS/AcYTz8b234ZIFQAaRjW4zhjCFwnGPshLCt8D6pbiwQRS+UxthR+UjBIA80/puHuW0VDw7Okj/8c5R7DfvdCbeNcCJvdwuV8jjJuilD+3cJPJAuEbsU+3KKiAA0Bbaam5WmWypaggVWjwZ2Lg2oUwcblMGeBpH2hhdqn2kXoaOzUnP2XCQJRtbqoekkJln6/NmNg9gth5vw2MRKcUhXnGBN2oA4XWSQ7nvqQZ75/UPO8JIZDlarxySTN5YaFZtuTKLt2lHxdS7E0IQsH0gluE31oLSodOfNRZhde5wga/ZklP+T0HIZKfAoEJWhczTiJxqBec+gzHTzDvY2YRjUuo5QFWheg3/2+zOugMkzmUcouwXqXqO8mEsRMcOSo41bSFUU1aCWJwjTuuKlJrUARaKn0DajwvgsVuL/VtJwrKMuhmebt2D4D3TULzIgDBi/OIxg5khXevVZbFWVD95rmWXgMlOgQ4kKFcxngEiTqaWss+CwCTX/CTtUoq/HqxhB/HfivtJxHUtO8FaPGN2D5TsHEIgF0K+atlJRg9SYiIGeQsdz46mRJjyFXacFw383kvBi/Gu2LAMvlgNtpXC6JQVjtJPzo+KVB58bshCIrSw25SOp6NjUNP8QYwXw6NWM34Oh3qW5BpiOwSZJrTLgtTaOwLL+LBIIdsq71Qgn8MqHRTWAItXcP4n7yDh63LFBNw9wGK8t6LGNJ0vRIERXn4HTdIqx9LjRSjHioEQ8lKZ1I1QEqzV3AHOijCIwFkhCYRoZFX1wufkcAQUvQXQoH0powRqbylp5WP4Qj0EOJs/BOaqZV4H5chHHlXMgz346/G5dg5AhXGJwMeE2U0OnAXtGKcXBEbVdqAz4+zNH5JA2p+milCQNBIb/UJGm5Wpr8Vrm8OGhVU44LTalXTgXOz3YqB6/CSrVQ1ZwBDjoTKov3oZwDeoYjXkN9jWwXOFO34lHnXizuhFDxHoDXKXiLukwR64UVvg8sceWsqNk/KqlvXcPAK+cm1HYTrgAZZl7xGwAtDhy1WpqH05Bjox644P8llP7AbC99Jz4rrS1GS+2XRM+F6qAXVvpacYkuAYenB3gkiltRSrwlbHMfBe16RPMjVYYDuRmP/P8aei9GxmU9q+U4EPwA5/9qlHwHFpeMOE7jEjzU0GR+x+AxmSonkvF2nI2YdcpK7xC5Sn7l3KMkENrDuLjUpK5nGYmuo3X7zwNuZGIYazOuVfuQnLeoTp9GuR28rageCoI9EFMWBGCmhP/Jwq4n0JpeGQZcyJrQrwjRHya1bR+jJXrQAIII6DolH09osIeF5ipHx+oCaG1Xs6pXGHQVLCZRy4Ml0IPbgAS3zoHy3ng9WFm6h2wM7iCFrZtgU1tIzSy0hBfNCu+bdGNzlWBkHanvCIIZSxWDvY9CGg9BzAW0/sAzTEReMgz9t5Qaz9Latt8h2bjHm2FOyYtW+5L0ghbfIoZ6FNz8C6Xanfjl77ERHTBzEggeMd/Edr9Y3gNNonNAeYGjkujW/CLfyVTQgzfIchBdJRDuPiSQfCUoKoufgxfby6DX6FEkis3oWS4v7YPb8CXGqHlV82I4o9VyPqyGK4t3yaoDy3AxLQYjOgD7W9ut8oQfbhzbDK6C7ejwYKDDE7a84Pj7yuKo2Nz1AKzKieLxqE182uSPv1J3scK3Do0gD4gDj1rykFg+s1OV8xUlf4ZA4xt4MsiFouJGuHKILPHMW3dAblGRcOstsKxgEI1tGXrPZ4JOY7DcF1J1VRL94nHIKz0+DqtQx2+3sANPAc2W0PBPUnaUk5V5wX27+phrvvqSNFHCowDcIoNrX+fT/t7BPNv453SydHSybjSan2q4ruzBifqx302MAK0JPoK7eCuv8NUlSp6EGZzYnJ0/XQig9/NHiHa1je3fJngsIl/V5yEn8zPaj0swnkOc4FSBIkzKk7Y8ZHUAPAVO1WfUsgtOFgLJCfb7+RWvVq7pF4OLwiBKe4DNDBOWPUh0z6Duxu9xFEwMveLRDr1y3MY5xl8x2dSfLFpOXjtJCUbKJFzrrUPC6uFicMG6HY4tPVm5nxBP/n7u8B2VtOiY0M9EX70wAp4CN4X9msllqs5gAP+jZeKxkavTiTqn2zP/5LH1f7SUlOB4OxbRb8MgnH+1+pddD17KBd+p3iN9BIrACfWvuJvyzhygXV1OPnB0WafQzuiWtKxPasU9oE0bkHTGALraEeaEGNGQfBUEwJk/TD7DZux06hCYkOCJurXIb4EIfPf6yLCcip5YLjpySJF8B2xocG5xeWfsiWXkH8LZ3mNqJUcEK+kDrSRMMNwNNNfAzycOcjwCNFGf9rvPj8CXPn1GyH9pu2MrL5j2YdRRlMl4291XzGn8/OrbNWwEbARsBGwEbARsBGwEbARsBGwEbARsBGwEbARsBGwEbARsBL4eCPwPVA1/wgqb9w0AAAAASUVORK5CYII=
+name: Active Directory Query v2 (XSOAR Engineer Training)
+script:
+  commands:
+  - arguments:
+    - description: The username (samAccountName) of the user to modify.
+      name: username
+      required: true
+    - description: Root (e.g., DC=domain,DC=com)
+      name: base-dn
+    description: Expires the password of an Active Directory user.
+    name: ad-expire-password
+  - arguments:
+    - description: The username of the account to unlock (sAMAccountName).
+      name: username
+      required: true
+    - description: Root. For example, DC=domain,DC=com. By default, the Base DN configured
+        for the instance is used.
+      name: base-dn
+    description: Unlocks a previously locked Active Directory user account.
+    name: ad-unlock-account
+  - arguments:
+    - description: The username of the account to disable (sAMAccountName).
+      name: username
+      required: true
+    - description: The password to set for the user.
+      name: password
+      required: true
+    - description: Root. For example, DC=domain,DC=com. Base DN configured for the
+        instance is used as default.
+      name: base-dn
+    description: Sets a new password for an Active Directory user. This command requires
+      a secure connection (SSL,TLS).
+    name: ad-set-new-password
+  - arguments:
+    - default: true
+      description: The Distinguished Name of the user in which to return information.
+      name: dn
+    - description: The name of the user to return information.
+      name: name
+    - description: Adds AD attributes of the resulting objects to the default attributes.
+      name: attributes
+    - description: Queries users by custom field type.
+      name: custom-field-type
+    - description: Queries users by custom field data (relevant only if the `custom-field-type`
+        argument is provided).
+      name: custom-field-data
+    - description: Queries users by the samAccountName attribute.
+      name: username
+    - defaultValue: "20"
+      description: The maximum number of objects to return. Default is 20.
+      name: limit
+    - description: Queries by the user's email address.
+      name: email
+    - auto: PREDEFINED
+      defaultValue: "false"
+      description: Whether to include verbose translation for UserAccountControl flags.
+        Default is false.
+      name: user-account-control-out
+      predefined:
+      - "true"
+      - "false"
+    description: Retrieves detailed information about a user account. The user can
+      be specified by name, email address, or as an Active Directory Distinguished
+      Name (DN). If no filter is specified, all users are returned.
+    name: ad-get-user
+    outputs:
+    - contextPath: ActiveDirectory.Users.dn
+      description: The distinguished name of the user.
+      type: string
+    - contextPath: ActiveDirectory.Users.displayName
+      description: The display name of the user.
+      type: string
+    - contextPath: ActiveDirectory.Users.name
+      description: The common name of the user.
+      type: string
+    - contextPath: ActiveDirectory.Users.sAMAccountName
+      description: The sAMAccountName of the user.
+      type: string
+    - contextPath: ActiveDirectory.Users.userAccountControl
+      description: The account control flag of the user.
+      type: number
+    - contextPath: ActiveDirectory.Users.mail
+      description: The email address of the user.
+      type: string
+    - contextPath: ActiveDirectory.Users.manager
+      description: The manager of the user.
+      type: string
+    - contextPath: ActiveDirectory.Users.memberOf
+      description: Groups for which the user is a member.
+      type: string
+    - contextPath: Account.DisplayName
+      description: The display name of the user.
+      type: string
+    - contextPath: Account.Groups
+      description: Groups for which the user is a member.
+      type: string
+    - contextPath: Account.Manager
+      description: The manager of the user.
+      type: string
+    - contextPath: Account.ID
+      description: The distinguished name of the user.
+      type: string
+    - contextPath: Account.Username
+      description: The samAccountName of the user.
+      type: string
+    - contextPath: Account.Email
+      description: The email address of the user.
+      type: string
+  dockerimage: demisto/ldap:1.0.0.12410
+  runonce: false
+  script: |
+    # Lab version of AD. Simulate the ad-get-user, ad-expire-password, and ad-set-new-password responses.
+
+    # Fun fact about data.  68% of all data is made up, but only 8% of people know that.
+
+    # Map samaccountname to email, in case you want to demo looking up with something else...
+    USERNAME_MAP = {
+        "DEMISTO007":"james.bond@demisto.local",
+        "DEMISTO003":"eve.moneypenny@demisto.local",
+        "DEMISTO001":"m@demisto.local"
+    }
+
+    USERS = {
+        "james.bond@demisto.local": {
+            "attributes": {
+                "displayName": [
+                    "James Bond"
+                ],
+                "mail": [
+                    "James.Bond@demisto.local"
+                ],
+                "manager": [
+                    "M@demisto.local"
+                ],
+                "memberOf": [
+                    "CN=Admins,CN=Users,DC=demisto,DC=local"
+                ],
+                "name": [
+                    "James Bond"
+                ],
+                "sAMAccountName": [
+                    "DEMISTO007"
+                ],
+                "userAccountControl": [
+                    512
+                ],
+                "dn": "CN=James Bond,CN=Users,DC=demisto,DC=local"
+            },
+            "account": {
+                "DisplayName": [
+                    "James Bond"
+                ],
+                "Email": [
+                    "James.Bond@demisto.local"
+                ],
+                "Manager": [
+                    "M@demisto.local"
+                ],
+                "Groups": [
+                    "CN=Agent,CN=Users,DC=demisto,DC=local"
+                ],
+                "Type": "AD",
+                "Username": [
+                    "DEMISTO007"
+                ],
+                "ID": "CN=James Bond,CN=Users,DC=demisto,DC=local"
+            }
+        },
+        "eve.moneypenny@demisto.local": {
+            "attributes": {
+                "displayName": [
+                    "Eve Moneypenny"
+                ],
+                "mail": [
+                    "Eve.Moneypenny@demisto.local"
+                ],
+                "manager": [
+                    "M@demisto.local"
+                ],
+                "memberOf": [
+                    "CN=Employees,CN=Users,DC=demisto,DC=local"
+                ],
+                "name": [
+                    "Eve Moneypenny"
+                ],
+                "sAMAccountName": [
+                    "DEMISTO003"
+                ],
+                "userAccountControl": [
+                    512
+                ],
+                "dn": "CN=Eve Moneypenny,CN=Users,DC=demisto,DC=local"
+            },
+            "account": {
+                "DisplayName": [
+                    "Eve Moneypenny"
+                ],
+                "Email": [
+                    "Eve.MoneyPenny@demisto.local"
+                ],
+                "Manager": [
+                    "M@demisto.local"
+                ],
+                "Groups": [
+                    "CN=Employees,CN=Users,DC=demisto,DC=local"
+                ],
+                "Type": "AD",
+                "Username": [
+                    "DEMISTO003"
+                ],
+                "ID": "CN=Eve Moneypenny,CN=Users,DC=demisto,DC=local"
+            }
+        },
+        "m@demisto.local": {
+            "attributes": {
+                "displayName": [
+                    "M"
+                ],
+                "mail": [
+                    "m@demisto.local"
+                ],
+                "manager": [],
+                "memberOf": [
+                    "CN=Executives,CN=Users,DC=demisto,DC=local"
+                ],
+                "name": [
+                    "M"
+                ],
+                "sAMAccountName": [
+                    "DEMISTO001"
+                ],
+                "userAccountControl": [
+                    512
+                ],
+                "dn": "CN=M,CN=Users,DC=demisto,DC=local"
+            },
+            "account": {
+                "DisplayName": [
+                    "M"
+                ],
+                "Email": [
+                    "M@demisto.local"
+                ],
+                "Manager": [],
+                "Groups": [
+                    "CN=Executives,CN=Users,DC=demisto,DC=local"
+                ],
+                "Type": "AD",
+                "Username": [
+                    "DEMISTO001"
+                ],
+                "ID": "CN=M,CN=Users,DC=demisto,DC=local"
+            }
+        }
+    }
+    def main():
+            ''' COMMAND EXECUTION '''
+
+            if demisto.command() == 'test-module':
+                demisto.results('ok')
+
+            args = demisto.args()
+
+
+            if demisto.command() == 'ad-expire-password':
+                demisto_entry = {
+                    'ContentsFormat': formats['text'],
+                    'Type': entryTypes['note'],
+                    'Contents': "Expired password successfully"
+                }
+                demisto.results(demisto_entry)
+
+            if demisto.command() == 'ad-set-new-password':
+                demisto_entry = {
+                    'ContentsFormat': formats['text'],
+                    'Type': entryTypes['note'],
+                    'Contents': "User password successfully set"
+                }
+                demisto.results(demisto_entry)
+
+            if demisto.command() == 'ad-unlock-account':
+                demisto_entry = {
+                    'ContentsFormat': formats['text'],
+                    'Type': entryTypes['note'],
+                    'Contents': "Account unlocked"
+                }
+                demisto.results(demisto_entry)
+
+            if demisto.command() == 'ad-disable-account':
+                demisto_entry = {
+                    'ContentsFormat': formats['text'],
+                    'Type': entryTypes['note'],
+                    'Contents': "Account disabled"
+                }
+                demisto.results(demisto_entry)
+
+            if demisto.command() == 'ad-enable-account':
+                ddemisto_entry = {
+                    'ContentsFormat': formats['text'],
+                    'Type': entryTypes['note'],
+                    'Contents': "Account enabled"
+                }
+                demisto.results(demisto_entry)
+
+            if demisto.command() == 'ad-get-user':
+
+                # error handing for Ori
+                if not demisto.args().get('username') and not demisto.args().get('email'):
+                    return_error("Need either a username or email")
+
+                # mock the demisto lookup with username
+                username = demisto.args().get('username')
+                username = USERNAME_MAP.get(username,'NotExisted')
+
+                # mock the demisto lookup via email
+                email = demisto.args().get('email',username)
+                user = USERS.get(email.lower(),{})
+
+                if user:
+                    rawjson = user
+                    # rawjson.pop('account')
+                else:
+                    rawjson = []
+
+                # return results like AD query would.
+                demisto_entry = {
+                    'ContentsFormat': formats['json'],
+                    'Type': entryTypes['note'],
+                    'Contents': rawjson,
+                    'ReadableContentsFormat': formats['markdown'],
+                    'HumanReadable': tableToMarkdown("Active Directory - Get Users", user.get('attributes')),
+                    'EntryContext': {
+                    'ActiveDirectory.Users(obj.dn == val.dn)': user.get('attributes'),
+                    'Account(obj.ID == val.ID)': user.get('account')
+                    }
+                }
+                demisto.results(demisto_entry)
+
+
+    # python2 uses __builtin__ python3 uses builtins
+    if __name__ == "__builtin__" or __name__ == "builtins" or __name__ == "__main__":
+        main()
+  subtype: python3
+  type: python
+sourcemoduleid: Active Directory Query v2
